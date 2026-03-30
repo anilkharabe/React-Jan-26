@@ -2,23 +2,23 @@ import {LOGO_URL} from '../utils/constant';
 
 const Header = ()=>{
     return(
-    <div className="header">
+    <div className="flex justify-between border-solid items-center">
       <div className='logo-container'>
-          <img className="logo" src={LOGO_URL}></img>
+          <img className="w-[170px] ml-3" src={LOGO_URL}></img>
       </div>
 
       <div className="nav-items">
-        <ul>
-          <li>
+        <ul className='flex '>
+          <li className='list-none p-[15px] m-[15px]'>
               Home
           </li>
-          <li>
+          <li className='list-none p-[15px] m-[15px]'>
               About
           </li>
-          <li>
+          <li className='list-none p-[15px] m-[15px]'>
               Contact Us
           </li>
-          <li>
+          <li className='list-none p-[15px] m-[15px]'>
               Cart
           </li>
         </ul>

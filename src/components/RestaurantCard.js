@@ -3,8 +3,8 @@ const RestaurantCard =(props)=>{
   const styleCard = { backgroundColor: '#E6E6E6'}
   const {name, cloudinaryImageId, avgRating, cuisines, areaName, sla } = props?.resObj?.info;
   return(
-        <div className="res-card" style={styleCard}>
-          <img className="res-logo" src={RES_URL + cloudinaryImageId}></img>
+        <div className="border-solid w-[200px] m-[15px]" style={styleCard}>
+          <img className="w-[100%]" src={RES_URL + cloudinaryImageId}></img>
           <h3>{name}</h3>
           <h4>{avgRating} Stars</h4>
           <h4>{sla?.slaString}</h4>
