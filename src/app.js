@@ -14,7 +14,6 @@ const AppLayout =()=>{
   )
 }
 
-console.log(<AppLayout />)
 
 const rootReact = ReactDOM.createRoot(document.getElementById("root"));
 rootReact.render(<AppLayout />); // takes object and convert it into html element
