@@ -17,7 +17,7 @@ const resInfoList = [
                 "Desserts",
                 "Beverages"
             ],
-            "avgRating": 4.7,
+            "avgRating": 4.2,
             "veg": true,
             "parentId": "113962",
             "avgRatingString": "4.7",
@@ -115,7 +115,7 @@ const resInfoList = [
                 "North Indian",
                 "Beverages"
             ],
-            "avgRating": 4.7,
+            "avgRating": 4.3,
             "veg": true,
             "parentId": "261543",
             "avgRatingString": "4.7",
@@ -367,7 +367,7 @@ const resInfoList = [
             "cuisines": [
                 "Maharashtrian"
             ],
-            "avgRating": 4.7,
+            "avgRating": 4.4,
             "veg": true,
             "parentId": "42915",
             "avgRatingString": "4.7",

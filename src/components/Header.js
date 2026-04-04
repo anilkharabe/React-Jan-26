@@ -2,11 +2,12 @@ import {LOGO_URL} from '../utils/constant';
 
 const Header = ()=>{
     return(
+      
     <div className="flex justify-between border-solid items-center">
       <div className='logo-container'>
           <img className="w-[170px] ml-3" src={LOGO_URL}></img>
       </div>
-
+      {console.log('re-rendering header component')}
       <div className="nav-items">
         <ul className='flex '>
           <li className='list-none p-[15px] m-[15px]'>
