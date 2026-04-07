@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react';
 import {LOGO_URL} from '../utils/constant';
 
 const Header = ()=>{
+  const [btnName, setBtnName] = useState('Flip me');
+  
     return(
       
     <div className="flex justify-between border-solid items-center">
@@ -21,6 +24,9 @@ const Header = ()=>{
           <li className='list-none p-[15px] m-[15px]'>
               Cart
           </li>
+          <button onClick={()=>{
+            btnName === 'Flip me' ?  setBtnName('Head') :  setBtnName('Flip me');
+          }}>{btnName}</button>
         </ul>
       </div>
     </div>
