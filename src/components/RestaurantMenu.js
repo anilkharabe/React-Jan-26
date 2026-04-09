@@ -1,26 +1,31 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Shimmer from './Shimmer'
+import { useParams } from "react-router-dom";
+import {RES_MENU} from '../utils/constant';
+
 const RestaurantMenu = ()=>{
     
     const [resInfo, setResInfo] = useState(null);
+    const {resId} = useParams();
 
     useEffect(()=>{
         fetchMenu();
     },[])
 
     const fetchMenu = async()=>{
-        const data = await axios.get('http://localhost:5000/api/menu?restaurantId=16061');
+        const data = await axios.get(RES_MENU + resId);
         setResInfo(data); 
     }
 
     if(resInfo === null){
-        return <h2><Shimmer /></h2>
+        return <h2> <Shimmer /></h2>
     }
 
     const {name, avgRating, costForTwoMessage, cuisines, locality, sla} = resInfo?.data?.data?.cards[2]?.card?.card?.info;
     const {cards} = resInfo?.data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR;
     const {itemCards} = cards[2]?.card?.card;
+    console.log('itemCards', itemCards)
     
     return (
         <div>
