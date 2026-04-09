@@ -2,58 +2,87 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
-const Body = ()=>{
-
+const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
-  const [searchText, setSearchText] = useState('');
-  const [filteredRestaurant, setFilteredRestaurant] = useState([]); 
+  const [searchText, setSearchText] = useState("");
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
-  useEffect(()=>{
-    fetchData()
+  useEffect(() => {
+    fetchData();
   }, []);
 
-  const fetchData =  async()=>{
-    const data = await axios.get('https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5986763&lng=73.79783479999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING');
-    setListOfRestaurants(data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-    setFilteredRestaurant(data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-  }
+  const fetchData = async () => {
+    const data = await axios.get(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5986763&lng=73.79783479999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
+    );
+    setListOfRestaurants(
+      data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants,
+    );
+    setFilteredRestaurant(
+      data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants,
+    );
+  };
 
   // Conditional rendering
-  return listOfRestaurants.length ==  0 ? <Shimmer /> : (
+  return listOfRestaurants.length == 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body my-[20px]">
       <div className="filter flex">
         <div className="m-[15px] p-[15px]">
-          <input type="text" value={searchText} onChange={(e)=>{
-            setSearchText(e.target.value)
-          }}/>
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
 
-          <button onClick={()=>{
-            // filter the restuarants cards and update the UI
-            // console.log('do filtering on:', searchText)
-            const filteredData = listOfRestaurants.filter((currentRes)=>{
-              return currentRes.info.name.toLowerCase().includes(searchText.toLowerCase())
-            })
+          <button
+            onClick={() => {
+              // filter the restuarants cards and update the UI
+              // console.log('do filtering on:', searchText)
+              const filteredData = listOfRestaurants.filter((currentRes) => {
+                return currentRes.info.name
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase());
+              });
 
-            setFilteredRestaurant(filteredData)
+              setFilteredRestaurant(filteredData);
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <button
+          className="btn bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={() => {
+            let filterRes = listOfRestaurants.filter((res) => {
+              return res.info.avgRating > 4.5;
+            });
 
-          }}>Search</button> 
-          </div>
-        <button className="btn bg-blue-500 text-white px-4 py-2 rounded" onClick={()=>{
-          let filterRes = listOfRestaurants.filter((res)=>{
-            return res.info.avgRating > 4.5;
-          });
-
-          setFilteredRestaurant(filterRes)
-          
-        }}>Top Rated Restaurants</button>
-
+            setFilteredRestaurant(filterRes);
+          }}
+        >
+          Top Rated Restaurants
+        </button>
       </div>
       <div className="flex flex-wrap m-[20px]">
-        { filteredRestaurant.map((currentRestaurant) => <RestaurantCard key={currentRestaurant.info.id} resObj = {currentRestaurant}/>)}
+        {filteredRestaurant.map((currentRestaurant) => (
+          <Link
+            key={currentRestaurant.info.id}
+            to={"/restaurants/" + currentRestaurant.info.id}
+          >
+            <RestaurantCard resObj={currentRestaurant} />
+          </Link>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Body;
