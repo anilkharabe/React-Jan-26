@@ -32,6 +32,7 @@ const Header = () => {
         <ul className="flex ">
           <li className="list-none p-[15px] m-[15px]"><Link to="/">Home</Link> </li>
           <li className="list-none p-[15px] m-[15px]"><Link to="/about">About</Link><></></li>
+          <li className="list-none p-[15px] m-[15px]"><Link to="/grocery">Grocery</Link><></></li>
           <li className="list-none p-[15px] m-[15px]"><Link to="/contact">Contact Us</Link> </li>
           <li className="list-none p-[15px] m-[15px]">Cart</li>
           <button
