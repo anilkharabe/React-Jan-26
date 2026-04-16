@@ -14,4 +14,20 @@ const RestaurantCard =(props)=>{
   )
 }
 
+// Higher Order Component
+
+// input : RestaurantCard => Process/Enhance =>RestaurantCardWitOffer(output)
+ 
+export const withOfferRestaurant = (RestaurantCard)=>{
+  return (props)=>{
+    const {header, subHeader} = props.resObj.info.aggregatedDiscountInfoV3;
+    return (
+      <div>
+        <label className="offer-card">{header} {subHeader}</label>
+        <RestaurantCard {...props}/>
+      </div>
+    )
+  }
+}
+
 export default RestaurantCard;

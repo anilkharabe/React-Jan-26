@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withOfferRestaurant } from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Shimmer from "./Shimmer";
@@ -8,6 +8,9 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const RestaurantCardWithOffer = withOfferRestaurant(RestaurantCard);
+
+  const dummy = "dummy Data";
 
   useEffect(() => {
     fetchData();
@@ -77,7 +80,12 @@ const Body = () => {
             key={currentRestaurant.info.id}
             to={"/restaurants/" + currentRestaurant.info.id}
           >
-            <RestaurantCard resObj={currentRestaurant} />
+            {/** show higher order component and normal component  */}
+            {currentRestaurant.info.aggregatedDiscountInfoV3.header ? (
+              <RestaurantCardWithOffer resObj={currentRestaurant}/>
+            ) : (
+              <RestaurantCard resObj={currentRestaurant} dummy ={dummy}/>
+            )}
           </Link>
         ))}
       </div>
