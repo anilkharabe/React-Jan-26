@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { RES_URL } from "../utils/constant";
+import UserContext from "../utils/UserContext";
+
 const RestaurantCard =(props)=>{
   const styleCard = { backgroundColor: '#E6E6E6'}
   const {name, cloudinaryImageId, avgRating, cuisines, areaName, sla } = props?.resObj?.info;
+  const {loggedInUser} = useContext(UserContext);
   return(
         <div className="border-solid w-[200px] m-[15px]" style={styleCard}>
           <img className="w-[100%]" src={RES_URL + cloudinaryImageId}></img>
@@ -10,6 +14,7 @@ const RestaurantCard =(props)=>{
           <h4>{sla?.slaString}</h4>
           <h4>{cuisines.join(', ')}</h4>
           <h4>{areaName}</h4>
+          <h4>{loggedInUser}</h4>
         </div>
   )
 }

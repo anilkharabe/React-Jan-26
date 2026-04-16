@@ -1,8 +1,9 @@
 import RestaurantCard, { withOfferRestaurant } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -10,8 +11,7 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const RestaurantCardWithOffer = withOfferRestaurant(RestaurantCard);
 
-  const dummy = "dummy Data";
-
+  const {loggedInUser, setUserInfo} = useContext(UserContext);
   useEffect(() => {
     fetchData();
   }, []);
@@ -73,6 +73,18 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
+         <div className="m-[15px] p-[15px]">
+          <label>UserName:</label>
+          <input
+            type="text"
+            value={loggedInUser}
+            onChange={(e) => {
+              setUserInfo(e.target.value);
+            }}
+          />
+
+        
+        </div>
       </div>
       <div className="flex flex-wrap m-[20px]">
         {filteredRestaurant.map((currentRestaurant) => (
