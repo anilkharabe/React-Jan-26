@@ -8,8 +8,9 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import "./styles.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Shimmer from "./components/Shimmer";
+import UserContext from "./utils/UserContext";
 
 // chunking
 // code splitting
@@ -17,16 +18,30 @@ import Shimmer from "./components/Shimmer";
 // lazy loading
 // on demand loading
 
-const Grocery = lazy(()=>{
-  return import("./components/Grocery")
-})
+const Grocery = lazy(() => {
+  return import("./components/Grocery");
+});
 
 const AppLayout = () => {
+  const [userInfo, setUserInfo] = useState();
+  // fake authentication
+  useEffect(() => {
+    // consider we are making http call for login and getting use information
+
+    const data = {
+      loggedInUser: "Aniruddha",
+    };
+
+    setUserInfo(data.loggedInUser);
+  }, []);
+
   return (
-    <div>
-      <Header />
-      <Outlet />
-    </div>
+    <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+      <div>
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 
@@ -49,12 +64,23 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/grocery",
-        element: (<Suspense fallback={<h1><Shimmer /></h1>}> <Grocery /> </Suspense>) ,
+        element: (
+          <Suspense
+            fallback={
+              <h1>
+                <Shimmer />
+              </h1>
+            }
+          >
+            {" "}
+            <Grocery />{" "}
+          </Suspense>
+        ),
       },
       {
         path: "/restaurants/:resId",
         element: <RestaurantMenu />,
-      }
+      },
     ],
     errorElement: <Error />,
   },

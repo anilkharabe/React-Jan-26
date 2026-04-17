@@ -1,6 +1,7 @@
 import { Component } from "react";
 import User from "./User";
 import UserClass from "./UserClass";
+import UserContext from "../utils/UserContext";
 
 class Contact extends Component {
   constructor(props) {
@@ -22,6 +23,11 @@ class Contact extends Component {
         {/* <User name={"Aniruddha - Functional component"} city={"Pune"}/> */}
         <UserClass name={"First"} city={"Hyderabad"} />
         {/* <UserClass name={"Second"} city={"Pune"} /> */}
+        <UserContext.Consumer>
+          {
+            (data)=><h3> {data.loggedInUser} </h3>
+          }
+        </UserContext.Consumer>
       </div>
     );
   }
