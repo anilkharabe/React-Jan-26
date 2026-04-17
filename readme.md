@@ -18,3 +18,11 @@ To run the project,
  *  - Link
  *  - Address
  */
+
+ Redux Toolkit
+- Install dependencies - @reduxjs/toolkit and react-redux
+- Build Store 
+- connecting our store with out app
+- slice (cartSlice)
+- dispatch(action)
+- selector
