@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const User = ({name, city})=>{
     const [count, setCount] = useState(0);
@@ -14,4 +14,4 @@ const User = ({name, city})=>{
     )
 }
 
-export default User;
+export default memo (User);

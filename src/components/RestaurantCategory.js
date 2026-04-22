@@ -1,5 +1,5 @@
 import ItemList from "./ItemList";
-import {useState} from 'react';
+import {memo, useState} from 'react';
 
 const RestaurantCategory = ({ data }) => {
     const [showItems, setShowItems] = useState(false);
@@ -30,4 +30,4 @@ const RestaurantCategory = ({ data }) => {
   );
 };
 
-export default RestaurantCategory;
+export default memo (RestaurantCategory);

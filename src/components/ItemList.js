@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { addItem } from "../redux/cartSlice";
 import { RES_URL } from "../utils/constant";
+import { memo } from "react";
 const ItemList = ({ items }) => {
   
   const dispatch = useDispatch();
@@ -41,4 +42,4 @@ const ItemList = ({ items }) => {
     </div>
   );
 };
-export default ItemList;
+export default memo (ItemList);

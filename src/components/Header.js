@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, memo } from "react";
 import { LOGO_URL } from "../utils/constant";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
@@ -10,7 +10,6 @@ const Header = () => {
 
   const {loggedInUser} = useContext(UserContext);
   const cart = useSelector((store)=> store.cart.items);
-  console.log('cart', cart)
 
   // if no dependency array => useEffect is called on every render
   useEffect(()=>{
@@ -65,4 +64,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo (Header);

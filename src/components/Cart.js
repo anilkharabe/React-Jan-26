@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import ItemList from "./ItemList";
 import { clearCart } from "../redux/cartSlice";
+import { memo } from "react";
 
 
 const Cart = () => {
@@ -23,4 +24,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default memo (Cart);
