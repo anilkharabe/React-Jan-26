@@ -3,14 +3,19 @@ import Shimmer from './Shimmer'
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from '../utils/useRestaurantMenu';
 import RestaurantCategory from './RestaurantCategory';
+import { memo } from 'react';
 
 const RestaurantMenu = ()=>{
     
     const {resId} = useParams();
-    const resInfo = useRestaurantMenu(resId);
+    const {resInfo, loading, error} = useRestaurantMenu(resId);
 
-    if(resInfo === null){
+    if(loading){
         return <h2> <Shimmer /></h2>
+    }
+
+    if(error){
+        return <Error />
     }
 
     const {name, avgRating, costForTwoMessage, cuisines, locality, sla} = resInfo?.data?.data?.cards[2]?.card?.card?.info;
@@ -39,4 +44,4 @@ const RestaurantMenu = ()=>{
     )
 }
 
-export default RestaurantMenu;
+export default memo (RestaurantMenu);

@@ -1,39 +1,53 @@
 import RestaurantCard, { withOfferRestaurant } from "./RestaurantCard";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, memo } from "react";
 import axios from "axios";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
+const RestaurantCardWithOffer = withOfferRestaurant(RestaurantCard);
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-  const RestaurantCardWithOffer = withOfferRestaurant(RestaurantCard);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const {loggedInUser, setUserInfo} = useContext(UserContext);
+  const { loggedInUser, setUserInfo } = useContext(UserContext);
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await axios.get(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5986763&lng=73.79783479999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
-    );
-    setListOfRestaurants(
-      data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants,
-    );
-    setFilteredRestaurant(
-      data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants,
-    );
+    try {
+      setLoading(true)
+      const data = await axios.get(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5986763&lng=73.79783479999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
+      );
+      setListOfRestaurants(
+        data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants,
+      );
+      setFilteredRestaurant(
+        data?.data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants,
+      );
+    } catch (error) {
+      setError(error.message)
+    } finally{
+      // always execute after try or catch block
+      setLoading(false)
+    }
+
   };
 
-  // Conditional rendering
-  return listOfRestaurants.length == 0 ? (
-    <Shimmer />
-  ) : (
+  if(loading) return <Shimmer /> ;
+
+  if(error) return (
+    <h2><Error /></h2>
+  )
+
+  return  (
     <div className="body my-[20px]">
       <div className="filter flex">
         <div className="m-[15px] p-[15px]">
@@ -73,7 +87,7 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
-         <div className="m-[15px] p-[15px]">
+        <div className="m-[15px] p-[15px]">
           <label>UserName:</label>
           <input
             type="text"
@@ -82,8 +96,6 @@ const Body = () => {
               setUserInfo(e.target.value);
             }}
           />
-
-        
         </div>
       </div>
       <div className="flex flex-wrap m-[20px]">
@@ -94,9 +106,9 @@ const Body = () => {
           >
             {/** show higher order component and normal component  */}
             {currentRestaurant.info.aggregatedDiscountInfoV3.header ? (
-              <RestaurantCardWithOffer resObj={currentRestaurant}/>
+              <RestaurantCardWithOffer resObj={currentRestaurant} />
             ) : (
-              <RestaurantCard resObj={currentRestaurant} dummy ={dummy}/>
+              <RestaurantCard resObj={currentRestaurant} />
             )}
           </Link>
         ))}
@@ -105,4 +117,4 @@ const Body = () => {
   );
 };
 
-export default Body;
+export default memo(Body);

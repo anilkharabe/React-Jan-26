@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, memo } from "react";
 import User from "./User";
 import UserClass from "./UserClass";
 import UserContext from "../utils/UserContext";
@@ -33,4 +33,4 @@ class Contact extends Component {
   }
 }
 
-export default Contact;
+export default memo (Contact);

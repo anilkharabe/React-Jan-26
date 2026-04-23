@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const Shimmer = () => {
   return (
     <div className="flex flex-wrap">
@@ -17,4 +19,4 @@ const Shimmer = () => {
   );
 };
 
-export default Shimmer;
+export default memo (Shimmer);
