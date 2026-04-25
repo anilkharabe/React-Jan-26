@@ -8,13 +8,13 @@ import { memo } from 'react';
 const RestaurantMenu = ()=>{
     
     const {resId} = useParams();
-    const {resInfo, loading, error} = useRestaurantMenu(resId);
+    const {resInfo, isLoading, isError} = useRestaurantMenu(resId);
 
-    if(loading){
+    if(isLoading){
         return <h2> <Shimmer /></h2>
     }
 
-    if(error){
+    if(isError){
         return <Error />
     }
 

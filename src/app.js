@@ -14,6 +14,9 @@ import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./redux/appStore";
 import Cart from "./components/Cart";
+import BodyQr from "./components/BodyQr";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // chunking
 // code splitting
@@ -27,6 +30,7 @@ const Grocery = lazy(() => {
 
 const AppLayout = () => {
   const [userInfo, setUserInfo] = useState();
+  const queryClient = new QueryClient();
   // fake authentication
   useEffect(() => {
     // consider we are making http call for login and getting use information
@@ -39,14 +43,17 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <Provider store={appStore}>
-      <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
-        <div>
-          <Header />
-          <Outlet />
-        </div>
-      </UserContext.Provider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={appStore}>
+        <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+          <div>
+            <Header />
+            <Outlet />
+          </div>
+        </UserContext.Provider>
+      </Provider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
@@ -58,6 +65,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Body />,
+      },
+      {
+        path: "/bodyqr",
+        element: <BodyQr />,
       },
       {
         path: "/about",
@@ -86,7 +97,7 @@ const appRouter = createBrowserRouter([
         path: "/restaurants/:resId",
         element: <RestaurantMenu />,
       },
-            {
+      {
         path: "/cart",
         element: <Cart />,
       },

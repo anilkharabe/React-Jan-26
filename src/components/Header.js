@@ -3,6 +3,8 @@ import { LOGO_URL } from "../utils/constant";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+import Button from "./common/Button";
+import SelectField from "./common/SelectField";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Flip me");
@@ -27,6 +29,23 @@ const Header = () => {
     console.log('useEffect called with  dependecy array');
   }, [btnName])
 
+  const [count, setCount] = useState(0)
+  const increment = ()=>{
+    setCount(count + 1)
+  }
+
+  const decrement = ()=>{
+    setCount(count - 1)
+  }
+
+  const users = [
+  { id: 1, name: "John" },
+  { id: 2, name: "Jane" },
+  { id: 3, name: "Arjun" },
+  { id: 4, name: "Karn" },
+
+];
+
   return (
     <div className="flex justify-between border-solid items-center">
       <div className="logo-container">
@@ -35,6 +54,7 @@ const Header = () => {
       <div className="nav-items">
         <ul className="flex ">
           <li className="list-none p-[15px] m-[15px]"><Link to="/">Home</Link> </li>
+          <li className="list-none p-[15px] m-[15px]"><Link to="/bodyqr">Body Query</Link> </li>
           <li className="list-none p-[15px] m-[15px]"><Link to="/about">About</Link><></></li>
           <li className="list-none p-[15px] m-[15px]"><Link to="/grocery">Grocery</Link><></></li>
           <li className="list-none p-[15px] m-[15px]"><Link to="/contact">Contact Us</Link> </li>
@@ -57,6 +77,18 @@ const Header = () => {
           >
             {loginBtn}
           </button>
+            <Button onClick={increment}>
+              Increment:{count}
+            </Button>
+
+            <Button onClick={decrement}>
+              Decrement:{count}
+            </Button>
+            <SelectField
+              options={users.map(u => ({ label: u.name, value: u.id }))}
+              onChange={(id) => console.log(id)}
+            />
+
           <li className="list-none p-[15px] m-[15px]">{loggedInUser}</li>
         </ul>
       </div>

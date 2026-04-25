@@ -42,9 +42,10 @@ class UserClass extends Component {
 
     return (
       <div className="border-solid">
+        <h2> User - class based component with useEffect</h2>
         <h2>Name: {name}</h2>
         <h3>Place: {city}</h3>
-        <button
+        {/* <button
           onClick={() => {
             this.setState({
                 count: this.state.count + 1
@@ -54,7 +55,7 @@ class UserClass extends Component {
           Increase Count
         </button>
         <h1>Count : {count}</h1>
-        <h1>Count2 : {count2}</h1>
+        <h1>Count2 : {count2}</h1> */}
       </div>
     );
   }

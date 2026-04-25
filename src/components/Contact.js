@@ -2,6 +2,7 @@ import { Component, memo } from "react";
 import User from "./User";
 import UserClass from "./UserClass";
 import UserContext from "../utils/UserContext";
+import UserWithReactQuery from "./UserWithReactQuery";
 
 class Contact extends Component {
   constructor(props) {
@@ -20,7 +21,6 @@ class Contact extends Component {
       <div>
         <h1>Contact</h1>
         <h2>This is Contact page</h2>
-        {/* <User name={"Aniruddha - Functional component"} city={"Pune"}/> */}
         <UserClass name={"First"} city={"Hyderabad"} />
         {/* <UserClass name={"Second"} city={"Pune"} /> */}
         <UserContext.Consumer>
@@ -28,6 +28,10 @@ class Contact extends Component {
             (data)=><h3> {data.loggedInUser} </h3>
           }
         </UserContext.Consumer>
+
+        <User/>
+        <UserWithReactQuery />
+
       </div>
     );
   }

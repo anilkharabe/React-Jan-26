@@ -10,17 +10,18 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(null);
 
   const { loggedInUser, setUserInfo } = useContext(UserContext);
+  
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      setLoading(true)
+      setIsLoading(true)
       const data = await axios.get(
         "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5986763&lng=73.79783479999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
       );
@@ -33,17 +34,17 @@ const Body = () => {
           ?.restaurants,
       );
     } catch (error) {
-      setError(error.message)
+      setIsError(error.message)
     } finally{
       // always execute after try or catch block
-      setLoading(false)
+      setIsLoading(false)
     }
 
   };
 
-  if(loading) return <Shimmer /> ;
+  if(isLoading) return <Shimmer /> ;
 
-  if(error) return (
+  if(isError) return (
     <h2><Error /></h2>
   )
 

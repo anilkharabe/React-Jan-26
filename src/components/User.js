@@ -1,17 +1,48 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
+import axios from "axios";
+import Error from './Error';
+import Shimmer from "./Shimmer";
 
-const User = ({name, city})=>{
-    const [count, setCount] = useState(0);
-    return (
-        <div className="border-solid">
-            <h2> {name} </h2>
-            <h3>Place: {city}</h3>
-            <button onClick={()=>{
-                setCount(count + 1)
-            }}>Increase Count</button>
-            <h1>Count : {count}</h1>
-        </div>
-    )
-}
+const User = () => {
+  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-export default memo (User);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.get("https://jsonplaceholder.typicode.com/users/1");
+      setName(data.name);
+      setCity(data.address.city);
+    } catch (error) {
+        setIsError(true);
+        console.log(error.message);
+    }finally{
+        setIsLoading(false)
+    }
+  };
+
+
+    if(isLoading){
+        return <h2> Loading with useEffect</h2>
+    }
+
+    if(isError){
+        return <Error />
+    }
+
+  return (
+    <div className="border-solid">
+      <h2> User - functional component with useEffect</h2>
+      <h2>Name: {name} </h2>
+      <h3>Place: {city}</h3>
+    </div>
+  );
+};
+
+export default memo(User);
