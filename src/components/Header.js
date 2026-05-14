@@ -59,6 +59,8 @@ const Header = () => {
           <li className="list-none p-[15px] m-[15px]"><Link to="/grocery">Grocery</Link><></></li>
           <li className="list-none p-[15px] m-[15px]"><Link to="/contact">Contact Us</Link> </li>
           <li className="list-none p-[15px] m-[15px]"><Link to="/cart">Cart ({cart.length})</Link></li>
+          <li className="list-none p-[15px] m-[15px]"><Link to="/POC">POC</Link></li>
+
           <button
             onClick={() => {
               btnName === "Flip me"

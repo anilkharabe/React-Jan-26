@@ -17,6 +17,7 @@ import Cart from "./components/Cart";
 import BodyQr from "./components/BodyQr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import POC from "./PoC/hooks/POC";
 
 // chunking
 // code splitting
@@ -100,6 +101,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/POC",
+        element: <POC />,
       },
     ],
     errorElement: <Error />,

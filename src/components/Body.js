@@ -102,11 +102,11 @@ const Body = () => {
       <div className="flex flex-wrap m-[20px]">
         {filteredRestaurant.map((currentRestaurant) => (
           <Link
-            key={currentRestaurant.info.id}
-            to={"/restaurants/" + currentRestaurant.info.id}
+            key={currentRestaurant?.info?.id}
+            to={"/restaurants/" + currentRestaurant?.info?.id}
           >
             {/** show higher order component and normal component  */}
-            {currentRestaurant.info.aggregatedDiscountInfoV3.header ? (
+            {currentRestaurant?.info?.aggregatedDiscountInfoV3?.header ? (
               <RestaurantCardWithOffer resObj={currentRestaurant} />
             ) : (
               <RestaurantCard resObj={currentRestaurant} />
